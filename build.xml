@@ -78,7 +78,7 @@
     <echo message="static modules: ${apache.static_modules}"/>
     <untar src="${src.dir}/${apache.tarball}"
            overwrite="false"
-           compression="gzip"
+           compression="bzip2"
            dest="${build.dir}"/>
     <chmod dir="${build.dir}/${apache.version}" perm="u+x" includes="**/*.sh"/>
     <exec dir="${build.dir}/${apache.version}"
