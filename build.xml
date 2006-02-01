@@ -4,23 +4,21 @@
 
   <property file="local.build.properties"/>
 
-  <target name="bootstrap" description="">
-    <antcall target="compile-apache"/>
-    <antcall target="compile-mod_jk"/>
-    <antcall target="setup-tomcat-nodes"/>
-    <antcall target="pack-apache"/>
+  <target name="init">
+    <splash imageurl="file://${src.dir}/cluster.jpg" showduration="0"/>
   </target>
 
-  <target name="clean">
+  <target name="bootstrap" description="Meta target that build everything" depends="init, compile-apache, compile-mod_jk, setup-tomcat-nodes, pack-apache"/>
+  
+  <target name="clean" depends="init">
     <delete dir="${build.dir}"/>
   </target>
 
-  <target name="dist-clean">
-    <antcall target="clean"/>
+  <target name="dist-clean" depends="clean">
     <delete dir="${dist.dir}"/>
   </target>
 
-  <target name="pack-apache">
+  <target name="pack-apache" depends="compile-apache, compile-mod_jk">
     <mkdir dir="${dist.dir}"/>
     <tar compression="bzip2"
          destfile="${dist.dir}/${apache.version}-jk-${os.name}.tar.bz2">
@@ -30,7 +28,7 @@
     </tar>
   </target>
 
-  <target name="setup-tomcat-nodes">
+  <target name="setup-tomcat-nodes" depends="init" description="Setup the two tomcat cluster nodes">
     <untar src="${lib.dir}/${tomcat.tarball}"
            overwrite="true"
            compression="gzip"
@@ -73,12 +71,12 @@
     <delete dir="${build.dir}/${tomcat.version}"/>
   </target>
 
-  <target name="compile-apache" description="Compile Apache-HTTPD from sources">
+  <target name="compile-apache" depends="init" description="Compile Apache-HTTPD from sources">
     <echo message="compiling ${apache.version}"/>
     <echo message="static modules: ${apache.static_modules}"/>
     <untar src="${src.dir}/${apache.tarball}"
            overwrite="false"
-           compression="bzip2"
+           compression="gzip"
            dest="${build.dir}"/>
     <chmod dir="${build.dir}/${apache.version}" perm="u+x" includes="**/*.sh"/>
     <exec dir="${build.dir}/${apache.version}"
@@ -109,7 +107,7 @@
     </replace>
   </target>
 
-  <target name="compile-mod_jk" description="Compile mod_jk from sources">
+  <target name="compile-mod_jk" depends="compile-apache" description="Compile mod_jk from sources">
     <replace file="${build.dir}/apache/bin/apxs">
       <replacetoken>/replace/with/path/to/perl/interpreter</replacetoken>
       <replacevalue>/usr/bin/perl</replacevalue>
