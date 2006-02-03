@@ -1,5 +1,20 @@
 <?xml version="1.0"?>
 
+<!--
+
+    Overview of Ant Targets
+
+    bootstrap           Meta target that build everything
+    compile-apache      Compile Apache-HTTPD from sources
+    compile-mod_jk      Compile mod_jk from sources
+    install-balancer    Deploy the balancer application
+    setup-balancer      Setup the balancer tomcat
+    setup-tomcat-nodes  Setup the two tomcat cluster nodes
+
+    Default target: bootstrap
+
+-->
+
 <project name="tomcat-cluster" basedir="." default="bootstrap">
 
   <property file="local.build.properties"/>
@@ -8,8 +23,8 @@
     <splash imageurl="file://${src.dir}/cluster.jpg" showduration="0"/>
   </target>
 
-  <target name="bootstrap" description="Meta target that build everything" depends="init, compile-apache, compile-mod_jk, setup-tomcat-nodes, pack-apache"/>
-  
+  <target name="bootstrap" description="Meta target that build everything" depends="init, compile-apache, compile-mod_jk, setup-tomcat-nodes, setup-balancer, pack-apache"/>
+
   <target name="clean" depends="init">
     <delete dir="${build.dir}"/>
   </target>
@@ -28,12 +43,45 @@
     </tar>
   </target>
 
+  <target name="setup-balancer" depends="init" description="Setup the balancer tomcat">
+    <untar src="${lib.dir}/${tomcat.tarball}"
+           overwrite="true"
+           compression="gzip"
+           dest="${build.dir}"/>
+    <copy overwrite="true" todir="${build.dir}/${tomcat.version}-balancer">
+      <fileset dir="${build.dir}/${tomcat.version}"/>
+    </copy>
+    <chmod dir="${build.dir}/${tomcat.version}-balancer/bin" perm="u+x" includes="**.sh"/>
+    <copy file="${conf.dir}/${tomcat.conf}"
+          todir="${build.dir}/${tomcat.version}-balancer/conf"
+          overwrite="true"/>
+    <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="9095">
+      <replacetoken>@SHUTDOWN@</replacetoken>
+    </replace>
+    <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="9777">
+      <replacetoken>@HTTP@</replacetoken>
+    </replace>
+    <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="9099">
+      <replacetoken>@AJP@</replacetoken>
+    </replace>
+    <delete dir="${build.dir}/${tomcat.version}"/>
+    <copy overwrite="true" tofile="balancer/local.build.properties">
+      <fileset file="${conf.dir}/balancer.build.properties"/>
+    </copy>
+    <replace file="balancer/local.build.properties" value="${build.dir}/${tomcat.version}-balancer">
+      <replacetoken>@TOMCAT_HOME@</replacetoken>
+    </replace>
+  </target>
+
+  <target name="install-balancer" depends="setup-balancer" description="Deploy the balancer application">
+    <ant inheritAll="false" inheritRefs="false" dir="balancer"/>
+  </target>
+
   <target name="setup-tomcat-nodes" depends="init" description="Setup the two tomcat cluster nodes">
     <untar src="${lib.dir}/${tomcat.tarball}"
            overwrite="true"
            compression="gzip"
            dest="${build.dir}"/>
-
     <copy overwrite="true" todir="${build.dir}/${tomcat.version}-1">
       <fileset dir="${build.dir}/${tomcat.version}"/>
     </copy>
