@@ -10,7 +10,7 @@ Tomcat Cluster
 
 
 
-0) Prerequisite
+0) Prerequisites (for build Apache httpd)
 
 	A working GCC-toolchain; gcc, make, binutils
 
@@ -28,6 +28,7 @@ Tomcat Cluster
 2) Run
 
 	./start.sh
+        Browse to http://127.0.0.1:9777/admin.html
 	./stop.sh
 
 
