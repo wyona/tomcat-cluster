@@ -28,6 +28,7 @@ Tomcat Cluster
 2) Run
 
 	./start.sh
+        Browse to http://127.0.0.1:9777
         Browse to http://127.0.0.1:9777/admin.html
 	./stop.sh
 
