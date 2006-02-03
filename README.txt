@@ -23,10 +23,7 @@ Tomcat Cluster
 
 1) Installation
 
-	copy build.properties to local.build.properties
-
 	ant bootstrap	
-
 
 2) Run
 

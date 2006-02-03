@@ -17,7 +17,7 @@
 
 <project name="tomcat-cluster" basedir="." default="bootstrap">
 
-  <property file="local.build.properties"/>
+  <property file="build.properties"/>
 
   <target name="init">
     <splash imageurl="file://${src.dir}/cluster.jpg" showduration="0"/>
