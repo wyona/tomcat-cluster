@@ -23,7 +23,7 @@
     <splash imageurl="file://${src.dir}/cluster.jpg" showduration="0"/>
   </target>
 
-  <target name="bootstrap" description="Meta target that build everything" depends="init, compile-apache, compile-mod_jk, setup-tomcat-nodes, setup-balancer, pack-apache"/>
+  <target name="bootstrap" description="Meta target that build everything" depends="init, compile-apache, compile-mod_jk, setup-tomcat-nodes, setup-balancer, install-balancer, pack-apache"/>
 
   <target name="clean" depends="init">
     <delete dir="${build.dir}"/>
