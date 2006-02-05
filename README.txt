@@ -1,22 +1,28 @@
 
-Tomcat Cluster
---------------
+Tomcat Cluster and Loadbalancer
+-------------------------------
 
-	0) Prerequisite
+	0) Prerequisites
 
 	1) Installation
 
 	2) Run
 
+        3) Credits
 
 
-0) Prerequisites (for build of Apache httpd on Linux)
 
-	A working GCC-toolchain; gcc, make, binutils
+0) Prerequisites
 
-	Tested with: gcc 3.4.4, gnu make 3.80, binutils 2.16.1 
+        - JDK 1.4.2
 
-	On Debian(-derivates) the following command should do the job
+        To build Apache httpd on Linux:
+
+	 - A working GCC-toolchain; gcc, make, binutils
+
+	  Tested with: gcc 3.4.4, gnu make 3.80, binutils 2.16.1 
+
+	  On Debian(-derivates) the following command should do the job
 	
 		apt-get install gcc g++ libc6-dev make
 
@@ -38,4 +44,7 @@ Tomcat Cluster
         Browse to http://127.0.0.1:8888/admin.html
 	./stop.sh
 
+3) Credits
 
+       Gregor Imboden (gregor.imboden@wyona.com)
+       Michael Wechner (michael.wechner@wyona.com)
