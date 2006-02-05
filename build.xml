@@ -23,7 +23,9 @@
     <splash imageurl="file://${src.dir}/cluster.jpg" showduration="0"/>
   </target>
 
-  <target name="bootstrap" description="Meta target that build everything" depends="init, compile-apache, compile-mod_jk, setup-tomcat-nodes, setup-balancer, install-balancer, pack-apache"/>
+  <target name="bootstrap" description="Meta target that builds everything" depends="init, compile-apache, compile-mod_jk, setup-tomcat-nodes, setup-balancer, install-balancer, pack-apache"/>
+
+  <target name="bootstrap-tomcat" description="Meta target that builds Tomcat Cluster and Balancer" depends="init, setup-tomcat-nodes, setup-balancer, install-balancer"/>
 
   <target name="clean" depends="init">
     <delete dir="${build.dir}"/>
@@ -52,6 +54,10 @@
       <fileset dir="${build.dir}/${tomcat.version}"/>
     </copy>
     <chmod dir="${build.dir}/${tomcat.version}-balancer/bin" perm="u+x" includes="**.sh"/>
+    <copy file="src/jakarta-tomcat-5.0.30-balancer/conf/server.xml"
+          todir="${build.dir}/${tomcat.version}-balancer/conf"
+          overwrite="true"/>
+<!--
     <copy file="${conf.dir}/${tomcat.conf}"
           todir="${build.dir}/${tomcat.version}-balancer/conf"
           overwrite="true"/>
@@ -64,6 +70,7 @@
     <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="9099">
       <replacetoken>@AJP@</replacetoken>
     </replace>
+-->
     <delete dir="${build.dir}/${tomcat.version}"/>
     <copy overwrite="true" tofile="balancer/local.build.properties">
       <fileset file="${conf.dir}/balancer.build.properties"/>
@@ -82,39 +89,52 @@
            overwrite="true"
            compression="gzip"
            dest="${build.dir}"/>
-    <copy overwrite="true" todir="${build.dir}/${tomcat.version}-1">
-      <fileset dir="${build.dir}/${tomcat.version}"/>
-    </copy>
-    <chmod dir="${build.dir}/${tomcat.version}-1/bin" perm="u+x" includes="**.sh"/>
-    <copy file="${conf.dir}/${tomcat.conf}"
-          todir="${build.dir}/${tomcat.version}-1/conf"
-          overwrite="true"/>
-    <replace file="${build.dir}/${tomcat.version}-1/conf/${tomcat.conf}" value="9015">
-      <replacetoken>@SHUTDOWN@</replacetoken>
-    </replace>
-    <replace file="${build.dir}/${tomcat.version}-1/conf/${tomcat.conf}" value="9018">
-      <replacetoken>@HTTP@</replacetoken>
-    </replace>
-    <replace file="${build.dir}/${tomcat.version}-1/conf/${tomcat.conf}" value="9019">
-      <replacetoken>@AJP@</replacetoken>
-    </replace>
 
-    <copy overwrite="true" todir="${build.dir}/${tomcat.version}-2">
+    <!-- Cluster Node 1 -->
+    <copy overwrite="true" todir="${build.dir}/${tomcat.version}-cnode1">
       <fileset dir="${build.dir}/${tomcat.version}"/>
     </copy>
-    <chmod dir="${build.dir}/${tomcat.version}-2/bin" perm="u+x" includes="**.sh"/>
-    <copy file="${conf.dir}/${tomcat.conf}"
-          todir="${build.dir}/${tomcat.version}-2/conf"
+    <chmod dir="${build.dir}/${tomcat.version}-cnode1/bin" perm="u+x" includes="**.sh"/>
+    <copy file="src/jakarta-tomcat-5.0.30-1/conf/server.xml"
+          todir="${build.dir}/${tomcat.version}-cnode1/conf"
           overwrite="true"/>
-    <replace file="${build.dir}/${tomcat.version}-2/conf/${tomcat.conf}" value="9025">
+<!--
+    <copy file="${conf.dir}/${tomcat.conf}"
+          todir="${build.dir}/${tomcat.version}-cnode1/conf"
+          overwrite="true"/>
+    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="9015">
       <replacetoken>@SHUTDOWN@</replacetoken>
     </replace>
-    <replace file="${build.dir}/${tomcat.version}-2/conf/${tomcat.conf}" value="9028">
+    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="9018">
       <replacetoken>@HTTP@</replacetoken>
     </replace>
-    <replace file="${build.dir}/${tomcat.version}-2/conf/${tomcat.conf}" value="9029">
+    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="9019">
       <replacetoken>@AJP@</replacetoken>
     </replace>
+-->
+
+    <!-- Cluster Node 2 -->
+    <copy overwrite="true" todir="${build.dir}/${tomcat.version}-cnode2">
+      <fileset dir="${build.dir}/${tomcat.version}"/>
+    </copy>
+    <chmod dir="${build.dir}/${tomcat.version}-cnode2/bin" perm="u+x" includes="**.sh"/>
+    <copy file="src/jakarta-tomcat-5.0.30-2/conf/server.xml"
+          todir="${build.dir}/${tomcat.version}-cnode2/conf"
+          overwrite="true"/>
+<!--
+    <copy file="${conf.dir}/${tomcat.conf}"
+          todir="${build.dir}/${tomcat.version}-cnode2/conf"
+          overwrite="true"/>
+    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="9025">
+      <replacetoken>@SHUTDOWN@</replacetoken>
+    </replace>
+    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="9028">
+      <replacetoken>@HTTP@</replacetoken>
+    </replace>
+    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="9029">
+      <replacetoken>@AJP@</replacetoken>
+    </replace>
+-->
 
     <delete dir="${build.dir}/${tomcat.version}"/>
   </target>
