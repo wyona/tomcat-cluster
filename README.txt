@@ -10,7 +10,7 @@ Tomcat Cluster
 
 
 
-0) Prerequisites (for build Apache httpd)
+0) Prerequisites (for build of Apache httpd on Linux)
 
 	A working GCC-toolchain; gcc, make, binutils
 
@@ -23,13 +23,19 @@ Tomcat Cluster
 
 1) Installation
 
-	ant bootstrap	
+        of Tomcat only (cluster and load balancer) (Linux and Windows)
+
+	ant bootstrap-tomcat
+
+        resp. of everything (Tomcat and Apache httpd as load balancer) (only Linux)
+
+	ant bootstrap
 
 2) Run
 
 	./start.sh
-        Browse to http://127.0.0.1:9777
-        Browse to http://127.0.0.1:9777/admin.html
+        Browse to http://127.0.0.1:8888
+        Browse to http://127.0.0.1:8888/admin.html
 	./stop.sh
 
 
