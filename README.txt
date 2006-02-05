@@ -14,7 +14,8 @@ Tomcat Cluster and Loadbalancer
 
 0) Prerequisites
 
-        - JDK 1.4.2
+        - Sun JDK 1.4.2
+	- Apache Ant 1.6.2
 
         To build Apache httpd on Linux:
 
