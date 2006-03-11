@@ -38,6 +38,8 @@ Tomcat Cluster and Loadbalancer
 
 	ant bootstrap
 
+        See cluster-app/README.txt for installing a sample cluster application
+
 2) Run
 
 	./start.sh
