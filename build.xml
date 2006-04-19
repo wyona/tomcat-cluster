@@ -28,11 +28,11 @@
 
   <target name="bootstrap-tomcat" description="Meta target that builds Tomcat Cluster and Balancer" depends="init, setup-tomcat-nodes, setup-balancer, install-balancer"/>
 
-  <target name="clean" depends="init">
+  <target name="clean" depends="init" description="Clean build directory">
     <delete dir="${build.dir}"/>
   </target>
 
-  <target name="dist-clean" depends="clean">
+  <target name="dist-clean" depends="clean" description="Clean distr and build directory">
     <delete dir="${dist.dir}"/>
   </target>
 
@@ -118,6 +118,9 @@
     <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="9101">
       <replacetoken>@TCP_LISTEN_PORT@</replacetoken>
     </replace>
+    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="cnode1">
+      <replacetoken>@CNODE@</replacetoken>
+    </replace>
 
     <!-- Cluster Node 2 -->
     <copy overwrite="true" todir="${build.dir}/${tomcat.version}-cnode2">
@@ -143,6 +146,9 @@
     </replace>
     <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="9201">
       <replacetoken>@TCP_LISTEN_PORT@</replacetoken>
+    </replace>
+    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="cnode2">
+      <replacetoken>@CNODE@</replacetoken>
     </replace>
 
     <delete dir="${build.dir}/${tomcat.version}"/>
