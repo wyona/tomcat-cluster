@@ -139,7 +139,7 @@
     --> 
          
     <!-- Define the top level container in our container hierarchy -->
-    <Engine name="Catalina" defaultHost="localhost" debug="0">
+    <Engine name="Catalina" defaultHost="localhost" debug="0" jvmRoute="@BALANCER@">
 
       <!-- The request dumper valve dumps useful debugging information about
            the request headers and cookies that were received, and the response
