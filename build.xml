@@ -47,6 +47,8 @@
   </target>
 
   <target name="setup-balancer" depends="init" description="Setup the balancer tomcat">
+
+    <!-- Unpack standard Tomcat -->
     <untar src="${lib.dir}/${tomcat.tarball}"
            overwrite="true"
            compression="gzip"
@@ -54,8 +56,12 @@
     <copy overwrite="true" todir="${build.dir}/${tomcat.version}-balancer">
       <fileset dir="${build.dir}/${tomcat.version}"/>
     </copy>
+    <delete dir="${build.dir}/${tomcat.version}"/>
+
+    <!-- Make shell scripts executable -->
     <chmod dir="${build.dir}/${tomcat.version}-balancer/bin" perm="u+x" includes="**.sh"/>
 
+    <!-- Customize configuration file -->
 <!--
     <copy file="src/jakarta-tomcat-5.0.30-balancer/conf/server.xml"
           todir="${build.dir}/${tomcat.version}-balancer/conf"
@@ -74,7 +80,7 @@
       <replacetoken>@AJP@</replacetoken>
     </replace>
 
-    <delete dir="${build.dir}/${tomcat.version}"/>
+    <!-- ??? -->
     <copy overwrite="true" tofile="balancer/local.build.properties">
       <fileset file="${conf.dir}/balancer.build.properties"/>
     </copy>
@@ -88,6 +94,8 @@
   </target>
 
   <target name="setup-tomcat-nodes" depends="init" description="Setup the two tomcat cluster nodes">
+
+    <!-- Unpack standard Tomcat -->
     <untar src="${lib.dir}/${tomcat.tarball}"
            overwrite="true"
            compression="gzip"
