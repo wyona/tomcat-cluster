@@ -10,12 +10,15 @@ Tomcat Cluster and Loadbalancer
 
         3) Credits
 
+        4) Notes
+
 
 
 0) Prerequisites
 
         - Sun JDK 1.4.2
 	- Apache Ant 1.6.2
+        - Network Connection (see Notes below ...)
 
         To build Apache httpd on Linux:
 
@@ -51,3 +54,9 @@ Tomcat Cluster and Loadbalancer
 
        Gregor Imboden (gregor.imboden@wyona.com)
        Michael Wechner (michael.wechner@wyona.com)
+       Simon Litwan (simon.litwan@wyona.com)
+
+4) Notes
+
+       It seems like enabling the <Cluster> directive within conf/server.xml requires a network connection.
+       If being offline a LifecycleException is being thrown (see catalina.out) ...
