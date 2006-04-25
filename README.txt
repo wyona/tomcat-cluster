@@ -16,7 +16,8 @@ Tomcat Cluster and Loadbalancer
 
 0) Prerequisites
 
-        - Sun JDK 1.4.2
+        - Sun JDK 1.4.2_10
+           - below JDK 1.4.2_10 strange java.io.IOException: Bogus chunk size
 	- Apache Ant 1.6.2
         - Network Connection (see Notes below ...)
 
