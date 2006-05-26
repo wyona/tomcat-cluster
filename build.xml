@@ -15,7 +15,7 @@
 
 -->
 
-<project name="tomcat-cluster" basedir="." default="bootstrap">
+<project name="tomcat-cluster" basedir="." default="bootstrap-tomcat">
 
   <property file="local.build.properties"/>
   <property file="build.properties"/>
