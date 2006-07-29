@@ -47,8 +47,8 @@ Tomcat Cluster and Loadbalancer
 2) Run
 
 	./start.sh
-        Browse to http://127.0.0.1:8888
-        Browse to http://127.0.0.1:8888/admin.html
+        Browse to http://127.0.0.1:9090
+        Browse to http://127.0.0.1:9090/admin.html
 	./stop.sh
 
 3) Credits
