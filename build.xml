@@ -70,13 +70,13 @@
     <copy file="${conf.dir}/jakarta-tomcat-5.0.30-balancer/server.xml"
           todir="${build.dir}/${tomcat.version}-balancer/conf"
           overwrite="true"/>
-    <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="9095">
+    <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="${balancer.shutdown.port}">
       <replacetoken>@SHUTDOWN@</replacetoken>
     </replace>
     <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="${balancer.http.port}">
       <replacetoken>@HTTP@</replacetoken>
     </replace>
-    <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="9099">
+    <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="${balancer.ajp.port}">
       <replacetoken>@AJP@</replacetoken>
     </replace>
 
