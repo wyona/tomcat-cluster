@@ -62,11 +62,6 @@
     <chmod dir="${build.dir}/${tomcat.version}-balancer/bin" perm="u+x" includes="**.sh"/>
 
     <!-- Customize configuration file -->
-<!--
-    <copy file="src/jakarta-tomcat-5.0.30-balancer/conf/server.xml"
-          todir="${build.dir}/${tomcat.version}-balancer/conf"
-          overwrite="true"/>
--->
     <copy file="${conf.dir}/jakarta-tomcat-5.0.30-balancer/server.xml"
           todir="${build.dir}/${tomcat.version}-balancer/conf"
           overwrite="true"/>
@@ -91,6 +86,13 @@
 
   <target name="install-balancer" depends="setup-balancer" description="Deploy the balancer application">
     <ant inheritAll="false" inheritRefs="false" dir="balancer"/>
+
+    <replace file="${build.dir}/${tomcat.version}-balancer/webapps/ROOT/WEB-INF/workers.xml" value="${cnode1.http.port}">
+      <replacetoken>9018</replacetoken>
+    </replace>
+    <replace file="${build.dir}/${tomcat.version}-balancer/webapps/ROOT/WEB-INF/workers.xml" value="${cnode2.http.port}">
+      <replacetoken>9028</replacetoken>
+    </replace>
   </target>
 
   <target name="setup-tomcat-nodes" depends="init" description="Setup the two tomcat cluster nodes">
