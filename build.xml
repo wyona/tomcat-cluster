@@ -114,16 +114,16 @@
     <copy file="${conf.dir}/jakarta-tomcat-5.0.30-cluster-node/server.xml"
           todir="${build.dir}/${tomcat.version}-cnode1/conf"
           overwrite="true"/>
-    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="9015">
+    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="${cnode1.shutdown.port}">
       <replacetoken>@SHUTDOWN@</replacetoken>
     </replace>
-    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="9018">
+    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="${cnode1.http.port}">
       <replacetoken>@HTTP@</replacetoken>
     </replace>
-    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="9019">
+    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="${cnode1.ajp.port}">
       <replacetoken>@AJP@</replacetoken>
     </replace>
-    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="9101">
+    <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="${cnode1.listen.port}">
       <replacetoken>@TCP_LISTEN_PORT@</replacetoken>
     </replace>
     <replace file="${build.dir}/${tomcat.version}-cnode1/conf/${tomcat.conf}" value="cnode1">
@@ -143,16 +143,16 @@
     <copy file="${conf.dir}/jakarta-tomcat-5.0.30-cluster-node/server.xml"
           todir="${build.dir}/${tomcat.version}-cnode2/conf"
           overwrite="true"/>
-    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="9025">
+    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="${cnode2.shutdown.port}">
       <replacetoken>@SHUTDOWN@</replacetoken>
     </replace>
-    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="9028">
+    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="${cnode2.http.port}">
       <replacetoken>@HTTP@</replacetoken>
     </replace>
-    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="9029">
+    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="${cnode2.ajp.port}">
       <replacetoken>@AJP@</replacetoken>
     </replace>
-    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="9201">
+    <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="${cnode2.listen.port}">
       <replacetoken>@TCP_LISTEN_PORT@</replacetoken>
     </replace>
     <replace file="${build.dir}/${tomcat.version}-cnode2/conf/${tomcat.conf}" value="cnode2">
