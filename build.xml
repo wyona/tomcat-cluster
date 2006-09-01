@@ -1,20 +1,5 @@
 <?xml version="1.0"?>
 
-<!--
-
-    Overview of Ant Targets
-
-    bootstrap           Meta target that build everything
-    compile-apache      Compile Apache-HTTPD from sources
-    compile-mod_jk      Compile mod_jk from sources
-    install-balancer    Deploy the balancer application
-    setup-balancer      Setup the balancer tomcat
-    setup-tomcat-nodes  Setup the two tomcat cluster nodes
-
-    Default target: bootstrap
-
--->
-
 <project name="tomcat-cluster" basedir="." default="bootstrap-tomcat">
 
   <property file="local.build.properties"/>
