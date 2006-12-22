@@ -16,9 +16,7 @@ Tomcat Cluster and Loadbalancer
 
 0) Prerequisites
 
-        - Sun JDK 1.4.2_10
-           - below JDK 1.4.2_10 strange java.io.IOException: Bogus chunk size
-	- Apache Ant 1.6.2
+        - Sun JDK 1.4.2_10  (NOTE: Below JDK 1.4.2_10 strange java.io.IOException: Bogus chunk size)
         - Network Connection (see Notes below ...)
 
         To build Apache httpd on Linux:
@@ -36,11 +34,11 @@ Tomcat Cluster and Loadbalancer
 
         of Tomcat only (cluster and load balancer) (Linux and Windows)
 
-	ant bootstrap-tomcat
+	  ./build.sh (resp. "ant bootstrap-tomcat")
 
         resp. of everything (Tomcat and Apache httpd as load balancer) (only Linux)
 
-	ant bootstrap
+	  ant bootstrap
 
         See cluster-app/README.txt for installing a sample cluster application
 
