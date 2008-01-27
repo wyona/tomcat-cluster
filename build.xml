@@ -9,9 +9,9 @@
     <splash imageurl="file://${src.dir}/cluster.jpg" showduration="0"/>
   </target>
 
-  <target name="bootstrap" description="Meta target that builds everything" depends="init, compile-apache, compile-mod_jk, setup-tomcat-nodes, setup-balancer, install-balancer, pack-apache"/>
+  <target name="bootstrap" description="Meta target that builds everything" depends="init, compile-apache, compile-mod_jk, setup-tomcat-nodes, setup-balancer-tomcat, install-balancer-webapp, pack-apache"/>
 
-  <target name="bootstrap-tomcat" description="Meta target that builds Tomcat Cluster and Balancer" depends="init, setup-tomcat-nodes, setup-balancer, install-balancer"/>
+  <target name="bootstrap-tomcat" description="Meta target that builds Tomcat Cluster and Balancer" depends="init, setup-tomcat-nodes, setup-balancer-tomcat, install-balancer-webapp"/>
 
   <target name="clean" depends="init" description="Clean build directory">
     <delete dir="${build.dir}"/>
@@ -31,7 +31,7 @@
     </tar>
   </target>
 
-  <target name="setup-balancer" depends="init" description="Setup the balancer tomcat">
+  <target name="setup-balancer-tomcat" depends="init" description="Setup the balancer tomcat">
 
     <!-- Unpack standard Tomcat -->
     <untar src="${lib.dir}/${tomcat.tarball}"
@@ -59,17 +59,16 @@
     <replace file="${build.dir}/${tomcat.version}-balancer/conf/${tomcat.conf}" value="${balancer.ajp.port}">
       <replacetoken>@AJP@</replacetoken>
     </replace>
+  </target>
 
-    <!-- ??? -->
+  <target name="install-balancer-webapp" depends="setup-balancer-tomcat" description="Deploy the balancer application">
     <copy overwrite="true" tofile="balancer/local.build.properties">
       <fileset file="${conf.dir}/balancer.build.properties"/>
     </copy>
     <replace file="balancer/local.build.properties" value="${build.dir}/${tomcat.version}-balancer">
       <replacetoken>@TOMCAT_HOME@</replacetoken>
     </replace>
-  </target>
 
-  <target name="install-balancer" depends="setup-balancer" description="Deploy the balancer application">
     <ant inheritAll="false" inheritRefs="false" dir="balancer"/>
 
     <replace file="${build.dir}/${tomcat.version}-balancer/webapps/ROOT/WEB-INF/workers.xml" value="${cnode1.http.port}">
@@ -77,6 +76,9 @@
     </replace>
     <replace file="${build.dir}/${tomcat.version}-balancer/webapps/ROOT/WEB-INF/workers.xml" value="${cnode2.http.port}">
       <replacetoken>9028</replacetoken>
+    </replace>
+    <replace file="${build.dir}/${tomcat.version}-balancer/webapps/ROOT/WEB-INF/workers.xml" value="${build.dir}/${tomcat.version}-balancer/webapps/ROOT/WEB-INF/logs">
+      <replacetoken>/REPLACE_THIS_STRING</replacetoken>
     </replace>
   </target>
 
