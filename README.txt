@@ -42,6 +42,10 @@ Tomcat Cluster and Loadbalancer
 
         See cluster-app/README.txt for installing a sample cluster application
 
+1.2) Configuration
+
+        Please reconfigure the Balancer logfile within build/jakarta-tomcat-5.0.30-balancer/webapps/ROOT/WEB-INF/workers.xml (logfile)
+
 2) Run
 
 	./start.sh
