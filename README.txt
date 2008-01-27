@@ -6,6 +6,8 @@ Tomcat Cluster and Loadbalancer
 
 	1) Installation
 
+	1.2) Configuration of log files
+
 	2) Run
 
         3) Credits
@@ -42,9 +44,11 @@ Tomcat Cluster and Loadbalancer
 
         See cluster-app/README.txt for installing a sample cluster application
 
-1.2) Configuration
+1.2) Configuration of log files
 
-        Please reconfigure the Balancer logfile within build/jakarta-tomcat-5.0.30-balancer/webapps/ROOT/WEB-INF/workers.xml (logfile)
+        - Please reconfigure the Balancer access logfile within build/jakarta-tomcat-5.0.30-balancer/webapps/ROOT/WEB-INF/workers.xml (logfile)
+
+        - The log4j file can be found within build/jakarta-tomcat-5.0.30-balancer/webapps/ROOT/WEB-INF/logs/balancer.log whereas it can be reconfigured within build/jakarta-tomcat-5.0.30-balancer/webapps/ROOT/WEB-INF/classes/log4j.properties
 
 2) Run
 
